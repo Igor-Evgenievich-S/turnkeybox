@@ -116,6 +116,50 @@
             color: var(--dark-blue);
         }
         
+        /* Портфолио */
+        .portfolio {
+            padding: 4rem 0;
+            text-align: center;
+            background-color: var(--white);
+        }
+        
+        .portfolio h2 {
+            margin-bottom: 1.5rem;
+            color: var(--dark-blue);
+        }
+        
+        .portfolio p {
+            margin-bottom: 2rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .portfolio-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.8rem 1.5rem;
+            background-color: var(--primary-blue);
+            color: var(--white);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            min-width: 220px;
+        }
+        
+        .portfolio-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            background-color: var(--dark-blue);
+        }
+        
+        .portfolio-btn i {
+            margin-right: 0.5rem;
+            font-size: 1.2rem;
+        }
+        
         /* Кнопки заказа */
         .order {
             padding: 4rem 0;
@@ -154,6 +198,11 @@
             transform: translateY(-3px);
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
             background-color: var(--light-blue);
+        }
+        
+        .btn-portfolio {
+            background-color: var(--light-blue);
+            color: var(--dark-blue);
         }
         
         .btn i {
@@ -245,6 +294,17 @@
         </div>
     </section>
 
+    <!-- Портфолио -->
+    <section class="portfolio">
+        <div class="container">
+            <h2>Наши работы</h2>
+            <p>Посмотрите примеры наших проектов, чтобы оценить качество и разнообразие выполненных работ.</p>
+            <a href="https://example-portfolio.com" class="portfolio-btn" target="_blank">
+                <i class="fas fa-briefcase"></i> Посмотреть портфолио
+            </a>
+        </div>
+    </section>
+
     <!-- Кнопки заказа -->
     <section class="order">
         <div class="container">
@@ -258,6 +318,9 @@
                 </a>
                 <a href="mailto:turnkeyboxofficial@gmail.com" class="btn">
                     <i class="fas fa-envelope"></i> Почта
+                </a>
+                <a href="exampls.html" class="btn btn-portfolio" target="_blank">
+                    <i class="fas fa-briefcase"></i> Примеры работ
                 </a>
             </div>
         </div>
