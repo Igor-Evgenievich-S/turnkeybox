@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TurnkeyBox - Портфолио</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-blue: #1a56db;
+            --secondary-blue: #3b82f6;
+            --light-blue: #dbeafe;
+            --dark-blue: #1e3a8a;
+            --white: #ffffff;
+            --light-gray: #f3f4f6;
+            --text-dark: #1f2937;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--white);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--dark-blue) 100%);
+            color: var(--white);
+            padding: 20px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo i {
+            margin-right: 10px;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 30px;
+        }
+        
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            color: var(--light-blue);
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 150px 0 100px;
+            background: linear-gradient(rgba(26, 86, 219, 0.85), rgba(30, 58, 138, 0.9)), url('https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80');
+            background-size: cover;
+            background-position: center;
+            color: var(--white);
+            text-align: center;
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--white);
+            color: var(--primary-blue);
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        /* Section Styles */
+        section {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--primary-blue);
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--secondary-blue);
+            border-radius: 2px;
+        }
+        
+        /* Portfolio Styles */
+        .portfolio {
+            background-color: var(--light-gray);
+        }
+        
+        .portfolio-filters {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .filter-btn {
+            background: none;
+            border: none;
+            padding: 8px 20px;
+            margin: 5px;
+            cursor: pointer;
+            font-weight: 500;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+        }
+        
+        .filter-btn.active, .filter-btn:hover {
+            background-color: var(--primary-blue);
+            color: var(--white);
+        }
+        
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .portfolio-item {
+            background-color: var(--white);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .portfolio-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .portfolio-img {
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .portfolio-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.5s ease;
+        }
+        
+        .portfolio-item:hover .portfolio-img img {
+            transform: scale(1.1);
+        }
+        
+        .portfolio-info {
+            padding: 20px;
+        }
+        
+        .portfolio-info h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: var(--dark-blue);
+        }
+        
+        .portfolio-info p {
+            color: #64748b;
+            margin-bottom: 15px;
+        }
+        
+        .portfolio-link {
+            display: inline-flex;
+            align-items: center;
+            color: var(--primary-blue);
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .portfolio-link i {
+            margin-left: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        .portfolio-link:hover {
+            color: var(--dark-blue);
+        }
+        
+        .portfolio-link:hover i {
+            transform: translateX(5px);
+        }
+        
+        /* About Section */
+        .about-content {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 40px;
+        }
+        
+        .about-text {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .about-text h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--primary-blue);
+        }
+        
+        .about-image {
+            flex: 1;
+            min-width: 300px;
+            text-align: center;
+        }
+        
+        .about-image img {
+            max-width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Contact Section */
+        .contact {
+            background: linear-gradient(rgba(59, 130, 246, 0.9), rgba(26, 86, 219, 0.9)), url('https://images.unsplash.com/photo-1516387938699-a93567ec168e?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80');
+            background-size: cover;
+            background-position: center;
+            color: var(--white);
+            clip-path: polygon(0 15%, 100% 0, 100% 100%, 0 100%);
+            padding: 120px 0 80px;
+        }
+        
+        .contact .section-title h2 {
+            color: var(--white);
+        }
+        
+        .contact-content {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .contact-content p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+        
+        .telegram-btn {
+            background-color: var(--white);
+            color: var(--primary-blue);
+            display: inline-flex;
+            align-items: center;
+            padding: 15px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .telegram-btn i {
+            margin-right: 10px;
+            font-size: 1.5rem;
+        }
+        
+        .telegram-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark-blue);
+            color: var(--white);
+            padding: 40px 0;
+            text-align: center;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .social-links {
+            display: flex;
+            margin: 20px 0;
+        }
+        
+        .social-links a {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--white);
+            margin: 0 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--white);
+            color: var(--primary-blue);
+            transform: translateY(-3px);
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+            
+            .portfolio-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <i class="fas fa-cube"></i>
+                    <span>TurnkeyBox</span>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="#home">Главная</a></li>
+                    <li><a href="#portfolio">Портфолио</a></li>
+                    <li><a href="#about">О нас</a></li>
+                    <li><a href="#contact">Контакты</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <h1>Профессиональные сайты под ключ</h1>
+            <p>Создаем современные и функциональные веб-сайты для Telegram-каналов и бизнеса с фокусом на пользовательский опыт и дизайн</p>
+            <a href="#portfolio" class="btn">Смотреть работы</a>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section class="portfolio" id="portfolio">
+        <div class="container">
+            <div class="section-title">
+                <h2>Наши работы</h2>
+                <p>Примеры наших последних проектов</p>
+            </div>
+            
+            <div class="portfolio-filters">
+                <button class="filter-btn active" data-filter="all">Все работы</button>
+                <button class="filter-btn" data-filter="telegram">Для Telegram-каналов</button>
+                <button class="filter-btn" data-filter="business">Для компаний</button>
+            </div>
+            
+            <div class="portfolio-grid">
+                <!-- Telegram Projects -->
+                <div class="portfolio-item" data-category="telegram">
+                    <div class="portfolio-img">
+                        <img src="https://images.unsplash.com/photo-1501504905252-473c47e087f8?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="EduLearn">
+                    </div>
+                    <div class="portfolio-info">
+                        <h3>EduLearn</h3>
+                        <p>Сайт для образовательного Telegram-канала</p>
+                        <a href="https://igor-evgenievich-s.github.io/example/EduLearn" class="portfolio-link" target="_blank">
+                            Посмотреть проект <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="portfolio-item" data-category="telegram">
+                    <div class="portfolio-img">
+                        <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="HealthFit">
+                    </div>
+                    <div class="portfolio-info">
+                        <h3>HealthFit</h3>
+                        <p>Сайт для Telegram-канала о здоровье и фитнесе</p>
+                        <a href="https://igor-evgenievich-s.github.io/example/HealthFit/" class="portfolio-link" target="_blank">
+                            Посмотреть проект <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="portfolio-item" data-category="telegram">
+                    <div class="portfolio-img">
+                        <img src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="NewsWave">
+                    </div>
+                    <div class="portfolio-info">
+                        <h3>NewsWave</h3>
+                        <p>Сайт для новостного Telegram-канала</p>
+                        <a href="https://igor-evgenievich-s.github.io/example/NewsWave" class="portfolio-link" target="_blank">
+                            Посмотреть проект <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="portfolio-item" data-category="telegram">
+                    <div class="portfolio-img">
+                        <img src="https://images.unsplash.com/photo-1535223289827-42f1e9919769?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="PathofDevelopment">
+                    </div>
+                    <div class="portfolio-info">
+                        <h3>PathofDevelopment</h3>
+                        <p>Сайт для Telegram-канала о саморазвитии</p>
+                        <a href="https://igor-evgenievich-s.github.io/example/PathofDevelopment" class="portfolio-link" target="_blank">
+                            Посмотреть проект <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="portfolio-item" data-category="telegram">
+                    <div class="portfolio-img">
+                        <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="TechnoLogic">
+                    </div>
+                    <div class="portfolio-info">
+                        <h3>TechnoLogic</h3>
+                        <p>Сайт для технологического Telegram-канала</p>
+                        <a href="https://igor-evgenievich-s.github.io/example/TechnoLogic" class="portfolio-link" target="_blank">
+                            Посмотреть проект <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Business Projects -->
+                <div class="portfolio-item" data-category="business">
+                    <div class="portfolio-img">
+                        <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="NeuroTech">
+                    </div>
+                    <div class="portfolio-info">
+                        <h3>NeuroTech</h3>
+                        <p>Сайт для технологической компании</p>
+                        <a href="https://igor-evgenievich-s.github.io/example/NeuroTech/" class="portfolio-link" target="_blank">
+                            Посмотреть проект <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="portfolio-item" data-category="business">
+                    <div class="portfolio-img">
+                        <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="CafeTastyCorner">
+                    </div>
+                    <div class="portfolio-info">
+                        <h3>CafeTastyCorner</h3>
+                        <p>Сайт для кафе и ресторана</p>
+                        <a href="https://igor-evgenievich-s.github.io/example/CafeTastyCorner" class="portfolio-link" target="_blank">
+                            Посмотреть проект <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="portfolio-item" data-category="business">
+                    <div class="portfolio-img">
+                        <img src="https://images.unsplash.com/photo-1493246507139-91e8fad9978e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="EcoRecycle">
+                    </div>
+                    <div class="portfolio-info">
+                        <h3>EcoRecycle</h3>
+                        <p>Сайт для экологической компании</p>
+                        <a href="https://igor-evgenievich-s.github.io/example/EcoRecycle/" class="portfolio-link" target="_blank">
+                            Посмотреть проект <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="portfolio-item" data-category="business">
+                    <div class="portfolio-img">
+                        <img src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="HorizonTravel">
+                    </div>
+                    <div class="portfolio-info">
+                        <h3>HorizonTravel</h3>
+                        <p>Сайт для туристической компании</p>
+                        <a href="https://igor-evgenievich-s.github.io/example/HorizonTravel/" class="portfolio-link" target="_blank">
+                            Посмотреть проект <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="portfolio-item" data-category="business">
+                    <div class="portfolio-img">
+                        <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="NexusITConsulting">
+                    </div>
+                    <div class="portfolio-info">
+                        <h3>NexusITConsulting</h3>
+                        <p>Сайт для IT-консалтинговой компании</p>
+                        <a href="https://igor-evgenievich-s.github.io/example/NexusITConsulting/" class="portfolio-link" target="_blank">
+                            Посмотреть проект <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="portfolio-item" data-category="business">
+                    <div class="portfolio-img">
+                        <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="SportPro">
+                    </div>
+                    <div class="portfolio-info">
+                        <h3>SportPro</h3>
+                        <p>Сайт для спортивной компании</p>
+                        <a href="https://igor-evgenievich-s.github.io/example/SportPro/" class="portfolio-link" target="_blank">
+                            Посмотреть проект <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="portfolio-item" data-category="business">
+                    <div class="portfolio-img">
+                        <img src="https://images.unsplash.com/photo-1541961017774-22349e4a1262?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="ArtVision">
+                    </div>
+                    <div class="portfolio-info">
+                        <h3>ArtVision</h3>
+                        <p>Сайт для арт-студии</p>
+                        <a href="https://igor-evgenievich-s.github.io/example/ArtVision/" class="portfolio-link" target="_blank">
+                            Посмотреть проект <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="portfolio-item" data-category="business">
+                    <div class="portfolio-img">
+                        <img src="https://images.unsplash.com/photo-1589391886645-d51941baf7fb?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="GlobalLegalPartners">
+                    </div>
+                    <div class="portfolio-info">
+                        <h3>GlobalLegalPartners</h3>
+                        <p>Сайт для юридической компании</p>
+                        <a href="https://igor-evgenievich-s.github.io/example/GlobalLegalPartners" class="portfolio-link" target="_blank">
+                            Посмотреть проект <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="container">
+            <div class="section-title">
+                <h2>О нас</h2>
+                <p>Почему выбирают наши услуги</p>
+            </div>
+            
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>Профессиональные сайты для вашего бизнеса</h3>
+                    <p>Мы специализируемся на создании современных и функциональных веб-сайтов для Telegram-каналов и бизнеса. Наша команда опытных разработчиков и дизайнеров готова реализовать проект любой сложности.</p>
+                    <p>Мы используем современные технологии и подходы к разработке, чтобы обеспечить нашим клиентам лучший пользовательский опыт и высокую конверсию.</p>
+                    <p>Каждый наш проект уникален и создается с учетом специфики бизнеса клиента и целевой аудитории.</p>
+                </div>
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="О нас">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <div class="section-title">
+                <h2>Контакты</h2>
+                <p>Свяжитесь с нами для обсуждения вашего проекта</p>
+            </div>
+            
+            <div class="contact-content">
+                <p>Готовы создать современный и функциональный сайт для вашего Telegram-канала или бизнеса? Свяжитесь с нами через Telegram для обсуждения деталей!</p>
+                <a href="https://t.me/turnkeybox" class="telegram-btn" target="_blank">
+                    <i class="fab fa-telegram"></i> Написать в Telegram
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="logo">
+                    <i class="fas fa-cube"></i>
+                    <span>TurnkeyBox</span>
+                </div>
+                <div class="social-links">
+                    <a href="https://t.me/turnkeybox" target="_blank"><i class="fab fa-telegram"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                </div>
+                <p>&copy; 2023 TurnkeyBox. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Filter portfolio items
+        document.addEventListener('DOMContentLoaded', function() {
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const portfolioItems = document.querySelectorAll('.portfolio-item');
+            
+            filterButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // Remove active class from all buttons
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    
+                    // Add active class to clicked button
+                    button.classList.add('active');
+                    
+                    const filterValue = button.getAttribute('data-filter');
+                    
+                    portfolioItems.forEach(item => {
+                        if (filterValue === 'all' || item.getAttribute('data-category') === filterValue) {
+                            item.style.display = 'block';
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+                });
+            });
+            
+            // Smooth scrolling for navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
